@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="icon" href="https://thedepauw.com/wp-content/uploads/2017/11/opinions-logo-696x448.jpg" type="image/x-icon"></link>
+
+    <title>firebase app</title>
+    <style>
+      .img-fluid{
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+   
+    <div class="container">
+      <div class="col-md-6 offset-md-3 text-center mt-5" >
+        <h1>Share Your Views</h1>
+        <br>
+        <img src="https://cdn.the-scientist.com/assets/articleNo/67110/hImg/35933/opinion-banner-l.png" alt="" class="img-fluid">
+        <br>
+        <h3>All the views are secure here </h3>
+        <br>
+        <div class="mb-3">
+          <textarea class="form-control"rows="5" id="msg"></textarea>
+        </div>
+        <button type="button" class="btn btn-dark" onclick="addData()">Add</button>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+<script src="/__/firebase/init.js"></script>
+<script >
+  function addData(){
+    let msg = document.getElementById('msg').value 
+    if(!msg){
+        alert('invalid response')
+    }else
+    console.log(msg)
+    firebase.firestore().collection('data').add({
+      msg: msg,
+      timestamp:new Date(),
+    }).then(doc=>{
+        console.log('doc id' + doc.id)
+        alert('data added')
+       document.getElementById('msg').value = ""
+    }).catch(e=>{
+      console.log('error');
+    })
+}
+</script>
+
+  </body>
+</html>
